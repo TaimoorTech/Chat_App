@@ -1,5 +1,6 @@
 import 'package:chat_app/core/navigator/navigator.dart';
 import 'package:chat_app/core/utils/common_functions.dart';
+import 'package:chat_app/core/utils/extensions.dart';
 import 'package:chat_app/presentation/screens/auth/login_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -97,7 +98,7 @@ class _SignupScreenState extends State<SignupScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 20),
                   Text(
                     "Create Account",
                     style: Theme.of(context)
@@ -132,7 +133,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   const SizedBox(height: 16),
                   CustomTextField(
                     textEditingController: emailController,
-                    hintText: "Email",
+                    hintText: context.appLocalizations.email,
                     focusNode: emailFocus,
                     validator: CommonFunctions.validateEmail,
                     prefixIcon: const Icon(Icons.email_outlined),
