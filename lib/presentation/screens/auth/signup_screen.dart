@@ -1,7 +1,8 @@
-import 'package:chat_app/core/navigator/navigator.dart';
 import 'package:chat_app/core/utils/common_functions.dart';
 import 'package:chat_app/core/utils/extensions.dart';
+import 'package:chat_app/data/services/service_locator.dart';
 import 'package:chat_app/presentation/screens/auth/login_screen.dart';
+import 'package:chat_app/router/app_router.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -13,11 +14,10 @@ class SignupScreen extends StatefulWidget {
 
   static const routeName = "Signup";
 
-  static Future<void> push(BuildContext context) {
-    return pushMaterialPageRoute(
-      context,
+  static Future<void> push() {
+    return getIt<AppRouter>().push(
       name: routeName,
-      builder: (context) => const SignupScreen(),
+      page: const SignupScreen(),
     );
   }
 
@@ -181,7 +181,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             TextSpan(
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  LoginScreen.push(context);
+                                  LoginScreen.push();
                                 },
                               text: "Login",
                               style: Theme.of(context)

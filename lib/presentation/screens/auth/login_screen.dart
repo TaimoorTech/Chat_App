@@ -1,20 +1,22 @@
 import 'package:chat_app/core/common/custom_gradient_button.dart';
 import 'package:chat_app/core/common/custom_text_field.dart';
-import 'package:chat_app/core/navigator/navigator.dart';
 import 'package:chat_app/core/utils/common_functions.dart';
 import 'package:chat_app/presentation/screens/auth/signup_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
+import '../../../data/services/service_locator.dart';
+import '../../../router/app_router.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   static const routeName = "Login";
 
-  static Future<void> push(BuildContext context) {
-    return navigateToFirstAppScreen(
-      context,
-      builder: (context) => const LoginScreen(),
+  static Future<void> push() {
+    return getIt<AppRouter>().navigateToFirstAppScreen(
+      name: routeName,
+      page: const LoginScreen(),
     );
   }
 
@@ -113,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         TextSpan(
                           recognizer: TapGestureRecognizer()
-                            ..onTap = () => SignupScreen.push(context),
+                            ..onTap = () => SignupScreen.push(),
                           text: "Sign up",
                           style: Theme.of(context)
                               .textTheme

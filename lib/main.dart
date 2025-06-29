@@ -3,6 +3,8 @@ import 'package:chat_app/data/services/service_locator.dart';
 import 'package:chat_app/presentation/screens/auth/login_screen.dart';
 import 'package:chat_app/router/app_router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   await setupServiceLocator();
@@ -20,6 +22,13 @@ class MyApp extends StatelessWidget {
       navigatorKey: getIt<AppRouter>().navigatorKey,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [Locale('en')],
       home: const LoginScreen(),
     );
   }
