@@ -1,4 +1,15 @@
 {
-"email": "Email",
-"password": "Password"
+  "general_email": "Email",
+  "general_password": "Password",
+  "login": "Login",
+  "sign_up": "Sign up",
+  "welcome_back": "Welcome Back",
+  "sign_in_to_continue": "Sign in to continue",
+  "do_not_have_account": "Don't have an account?",
+  "create_account": "Create Account",
+  "fill_in_details": "Please fill in the details to continue",
+  "full_name": "Full Name",
+  "username": "Username",
+  "phone_number": "Phone Number",
+  "already_have_an_account": "Already have an account?"
 }

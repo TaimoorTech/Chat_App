@@ -1,5 +1,6 @@
 import 'package:chat_app/core/utils/common_functions.dart';
 import 'package:chat_app/core/utils/extensions.dart';
+import 'package:chat_app/data/repositories/auth_repository.dart';
 import 'package:chat_app/data/services/service_locator.dart';
 import 'package:chat_app/presentation/screens/auth/login_screen.dart';
 import 'package:chat_app/router/app_router.dart';
@@ -86,6 +87,26 @@ class _SignupScreenState extends State<SignupScreen> {
     super.dispose();
   }
 
+  Future<void> handleSignUp(BuildContext context) async {
+    FocusScope.of(context).unfocus();
+    if (_signupFormKey.currentState?.validate() ?? false) {
+      try {
+        await getIt<AuthRepository>().signUp(
+          username: usernameController.text,
+          fullName: nameController.text,
+          email: emailController.text,
+          phoneNumber: phoneController.text,
+          password: passwordController.text,
+        );
+      } catch (e) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(e.toString())));
+        }
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -100,7 +121,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 children: [
                   const SizedBox(height: 20),
                   Text(
-                    "Create Account",
+                    context.appLocalizations.create_account,
                     style: Theme.of(context)
                         .textTheme
                         .headlineMedium
@@ -108,7 +129,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    "Please fill in the details to continue",
+                    context.appLocalizations.fill_in_details,
                     style: Theme.of(context)
                         .textTheme
                         .bodyLarge
@@ -117,7 +138,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   const SizedBox(height: 30),
                   CustomTextField(
                     textEditingController: nameController,
-                    hintText: "Full Name",
+                    hintText: context.appLocalizations.full_name,
                     focusNode: nameFocus,
                     validator: validateName,
                     prefixIcon: const Icon(Icons.person_outline),
@@ -125,7 +146,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   const SizedBox(height: 16),
                   CustomTextField(
                     textEditingController: usernameController,
-                    hintText: "Username",
+                    hintText: context.appLocalizations.username,
                     focusNode: usernameFocus,
                     validator: validateUsername,
                     prefixIcon: const Icon(Icons.alternate_email),
@@ -133,7 +154,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   const SizedBox(height: 16),
                   CustomTextField(
                     textEditingController: emailController,
-                    hintText: context.appLocalizations.email,
+                    hintText: context.appLocalizations.general_email,
                     focusNode: emailFocus,
                     validator: CommonFunctions.validateEmail,
                     prefixIcon: const Icon(Icons.email_outlined),
@@ -141,7 +162,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   const SizedBox(height: 16),
                   CustomTextField(
                     textEditingController: phoneController,
-                    hintText: "Phone Number",
+                    hintText: context.appLocalizations.phone_number,
                     focusNode: phoneFocus,
                     validator: validatePhone,
                     prefixIcon: const Icon(Icons.phone_outlined),
@@ -149,7 +170,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   const SizedBox(height: 16),
                   CustomTextField(
                     textEditingController: passwordController,
-                    hintText: "Password",
+                    hintText: context.appLocalizations.general_password,
                     obscureText: isObscurePassword,
                     focusNode: passwordFocus,
                     validator: CommonFunctions.validatePassword,
@@ -165,17 +186,14 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   const SizedBox(height: 30),
                   CustomGradientButton(
-                    onPressed: () {
-                      FocusScope.of(context).unfocus();
-                      if (_signupFormKey.currentState?.validate() ?? false) {}
-                    },
-                    text: "Create Account",
+                    onPressed: () => handleSignUp(context),
+                    text: context.appLocalizations.create_account,
                   ),
                   const SizedBox(height: 20),
                   Center(
                     child: RichText(
                       text: TextSpan(
-                          text: "Already have an account? ",
+                          text: " ",
                           style: TextStyle(color: Colors.grey[600]),
                           children: [
                             TextSpan(
@@ -183,7 +201,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 ..onTap = () {
                                   LoginScreen.push();
                                 },
-                              text: "Login",
+                              text: context.appLocalizations.login,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyLarge

@@ -1,6 +1,7 @@
 import 'package:chat_app/core/common/custom_gradient_button.dart';
 import 'package:chat_app/core/common/custom_text_field.dart';
 import 'package:chat_app/core/utils/common_functions.dart';
+import 'package:chat_app/core/utils/extensions.dart';
 import 'package:chat_app/presentation/screens/auth/signup_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               const SizedBox(height: 60),
               Text(
-                "Welcome Back",
+                context.appLocalizations.welcome_back,
                 style: Theme.of(context)
                     .textTheme
                     .headlineMedium
@@ -68,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 10),
               Text(
-                "Sign in to continue",
+                context.appLocalizations.sign_in_to_continue,
                 style: Theme.of(context)
                     .textTheme
                     .bodyLarge
@@ -77,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 30),
               CustomTextField(
                 textEditingController: emailController,
-                hintText: "Email",
+                hintText: context.appLocalizations.general_email,
                 focusNode: emailFocus,
                 validator: CommonFunctions.validateEmail,
                 prefixIcon: const Icon(Icons.email_outlined),
@@ -85,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 16),
               CustomTextField(
                 textEditingController: passwordController,
-                hintText: "Password",
+                hintText: context.appLocalizations.general_password,
                 obscureText: isObscurePassword,
                 focusNode: passwordFocus,
                 prefixIcon: const Icon(Icons.lock),
@@ -104,19 +105,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   FocusScope.of(context).unfocus();
                   if (_loginFormKey.currentState?.validate() ?? false) {}
                 },
-                text: "Login",
+                text: context.appLocalizations.login,
               ),
               const SizedBox(height: 20),
               Center(
                 child: RichText(
                   text: TextSpan(
-                      text: "Don't have an account?  ",
+                      text: "${context.appLocalizations.do_not_have_account}  ",
                       style: TextStyle(color: Colors.grey[600]),
                       children: [
                         TextSpan(
                           recognizer: TapGestureRecognizer()
                             ..onTap = () => SignupScreen.push(),
-                          text: "Sign up",
+                          text: context.appLocalizations.sign_up,
                           style: Theme.of(context)
                               .textTheme
                               .bodyLarge
